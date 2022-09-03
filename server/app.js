@@ -27,10 +27,10 @@ app.post('/login', (request, response) => {
     const db = dbService.getDbServiceInstance();
     const result = db.loginUser(email, password);
     result
-        .then(data => response.header('authorization', data['authorization']).json({
-            "message": "User logged in successfully", "token": data['authorization']
-        }))
-        .catch(err => console.log(err));
+    .then(data => response.header('authorization', data['authorization']).json({
+        "token": data['authorization']
+    }))
+    .catch(err => console.log(err));
 });
 
 app.post('/logout', deleteToken, (req, res) => {

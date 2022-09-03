@@ -1,8 +1,11 @@
-document.addEventListener('DOMContentLoaded', function () {
-    fetch('http://localhost:5000/getAll')
-    .then(response => response.json())
-    .then(data => loadHTMLTable(data['data']));
-    
+document.addEventListener('DOMContentLoaded', async function () {
+    const res = await fetch('http://localhost:5000/getAll', {
+        headers: {
+            'authorization': localStorage.getItem('token'),
+        },
+    })
+    const data = await res.json();
+    loadHTMLTable(data['data']);
 });
 
 document.querySelector('table tbody').addEventListener('click', function(event) {
@@ -20,14 +23,21 @@ const searchBtn = document.querySelector('#search-btn');
 searchBtn.onclick = function() {
     const searchValue = document.querySelector('#search-input').value;
 
-    fetch('http://localhost:5000/search/' + searchValue)
+    fetch('http://localhost:5000/search/' + searchValue, {
+        headers: {
+            'authorization': localStorage.getItem('token'),
+        },
+    })
     .then(response => response.json())
     .then(data => loadHTMLTable(data['data']));
 }
 
 function deleteRowById(id) {
     fetch('http://localhost:5000/delete/' + id, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+            'authorization': localStorage.getItem('token'),
+        },
     })
     .then(response => response.json())
     .then(data => {
@@ -52,6 +62,7 @@ updateBtn.onclick = function() {
     fetch('http://localhost:5000/update', {
         method: 'PATCH',
         headers: {
+            'authorization': localStorage.getItem('token'),
             'Content-type' : 'application/json'
         },
         body: JSON.stringify({
@@ -77,6 +88,7 @@ addBtn.onclick = function () {
 
     fetch('http://localhost:5000/insert', {
         headers: {
+            'authorization': localStorage.getItem('token'),
             'Content-type': 'application/json'
         },
         method: 'POST',
