@@ -12,8 +12,8 @@
     <h1>Registration Form</h1>
     <form action="">
         <div>
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name">
         </div>
         <div>
 
@@ -32,11 +32,11 @@
         const btn = document.querySelector('.submit');
         btn.addEventListener('click', (e) => {
             e.preventDefault();
-            const username = document.querySelector('#username').value;
+            const name = document.querySelector('#name').value;
             const password = document.querySelector('#password').value;
             const email = document.querySelector('#email').value;
             const data = {
-                username,
+                name,
                 password,
                 email
             }
