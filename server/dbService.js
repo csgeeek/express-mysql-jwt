@@ -58,6 +58,7 @@ class DbService {
             });
 
             if (response.length > 0) {
+                // create a token
                 const accessToken = createToken(response[0]);
                 return {
                     "authorization": accessToken
